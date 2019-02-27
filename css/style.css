@@ -141,6 +141,7 @@ footer {
       right: -8vh; }
     footer .layout .box {
       position: relative;
+      margin: 0 auto;
       overflow: hidden;
       height: 24vh; }
       footer .layout .box ul {
