@@ -51,9 +51,13 @@ let  Footer = {
         })
 
         this.$right_btn.on('click',function(){
-            if(_this.$page_index<4){
+            if(_this.$page_index<_this.$foot_page_count){
                 let box_width = _this.$footer.find('.box').width()
-                _this.$ul.animate({left:'-='+ box_width},400)
+                let li_width = _this.$footer.find('li').outerWidth(true)
+                let per_page_count = Math.floor(box_width/li_width)
+
+
+                _this.$ul.animate({left:'-='+ per_page_count*li_width},400)
                 _this.$page_index+=1
             }else{
                 console.log(`已翻到最后${_this.$page_index}页`)
@@ -62,13 +66,16 @@ let  Footer = {
         })
 
         this.$left_btn.on('click',function(){
-            if(_this.$page_index > 1){
+            if(_this.$page_index>1){
                 let box_width = _this.$footer.find('.box').width()
-                _this.$ul.animate({left:'+='+box_width},400)
+                let li_width = _this.$footer.find('li').outerWidth(true)
+                let per_page_count = Math.floor(box_width/li_width)
+
+
+                _this.$ul.animate({left:'+='+ per_page_count*li_width},400)
                 _this.$page_index-=1
             }else{
                 console.log(`已翻到第${_this.$page_index}页`)
-
             }
         })
 
@@ -116,15 +123,12 @@ let  Footer = {
         let box_width = this.$box.width()
 
         let per_page_li = (Math.floor(box_width/li_widht))
-        console.log(`每页有${per_page_li}个li`)
+        console.log(`每页${per_page_li}个li`)
         this.$foot_page_count = Math.ceil(li_count/per_page_li)
-        console.log(`footer总共有${this.$foot_page_count}页`)
-        let real_box_width = Math.floor(per_page_li * li_widht - 2)
-        console.log(`真实box宽度${real_box_width}相素.`)
+        console.log(`总共${this.$foot_page_count}页`)
+
 
         this.$footer.find('ul').css({width:ul_width})
-        this.$box.css({width:real_box_width})
-        console.log("sss")
     }
 }
 
