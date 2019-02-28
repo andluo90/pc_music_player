@@ -27,7 +27,7 @@
 
 ### 效果图
 
-![Screenshot]('/img/pc_music_player_demo1.png')
+![Screenshot](/img/pc_music_player_demo1.png)
 
 ### 待实现功能
 1. 收藏功能
