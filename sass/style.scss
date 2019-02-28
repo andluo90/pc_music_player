@@ -171,9 +171,15 @@ main {
         }
 
         .lyric {
-            font-size: 3vh;
+            font-size: 2vh;
             margin-top: 3vh;
-            color: rgba(255, 255, 255, 0.6)
+            color: rgba(255, 255, 255, 0.6);
+            
+            p span{
+                font-size: 3vh;
+                opacity: 0;
+                display: inline-block
+            }
         }
     }
 }

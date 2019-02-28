@@ -70,7 +70,8 @@ let Fm = {
             console.log(_this.lyric_obj[0+currentTime])
             let current_lyric = _this.lyric_obj[0+currentTime]
             if(current_lyric){
-                _this.$container.find('.lyric p').text(current_lyric)
+                // _this.$container.find('.lyric p').html(`<p class="animated rollIn">${current_lyric}</p>`)
+                _this.$container.find('.lyric p').text(current_lyric).boomText()
 
             }
         }
@@ -253,3 +254,21 @@ let  Footer = {
 Footer.init()
 Fm.init()
 
+$.fn.boomText = function(type="rollIn"){
+    this.html(()=>{
+        let arr = $(this).text().split('').map((word)=>{
+            return `<span>${word}</span>`
+        })
+        return arr.join('')
+    })
+
+    let index = 0
+    let $words = $(this).find('span')
+    let clock = setInterval(function(){
+        $words.eq(index).addClass('animated '+type)
+        index++
+        if(index >= $words.length){
+            clearInterval(clock)
+        }
+    },300)
+}

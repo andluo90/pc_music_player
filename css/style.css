@@ -119,9 +119,13 @@ main {
       margin-top: 2vh;
       color: rgba(255, 255, 255, 0.6); }
     main .detail .lyric {
-      font-size: 3vh;
+      font-size: 2vh;
       margin-top: 3vh;
       color: rgba(255, 255, 255, 0.6); }
+      main .detail .lyric p span {
+        font-size: 3vh;
+        opacity: 0;
+        display: inline-block; }
 
 footer:hover .layout .iconfont {
   opacity: 1; }
