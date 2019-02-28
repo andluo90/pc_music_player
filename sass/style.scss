@@ -147,6 +147,14 @@ main {
                 height: .8vh;
                 border-radius: .2vh;
                 background: rgba(255, 255, 255, 0.4);
+                cursor: pointer;
+            }
+
+            .bar-progress {
+                height: .8vh;
+                background-color: white;
+                width: 0%;
+                transition: width .7s;
             }
 
             .current-time {
@@ -157,7 +165,7 @@ main {
         }
 
         .author {
-            font-size: 2vh;
+            font-size: 3vh;
             margin-top: 2vh;
             color: rgba(255, 255, 255, 0.6);
         }
@@ -165,7 +173,7 @@ main {
         .lyric {
             font-size: 3vh;
             margin-top: 3vh;
-            color: rgba(255, 255, 255, 1);
+            color: rgba(255, 255, 255, 0.6)
         }
     }
 }
@@ -243,6 +251,12 @@ footer {
                 li:hover {
                     box-shadow: 0 0 0.5vh 0.5vh rgba(255,255,255,0.8);
                 }
+
+                li.active {
+                    box-shadow: 0 0 0.5vh 0.5vh rgba(255,255,255,0.8);
+                }
+
+                
             }
         }
 
