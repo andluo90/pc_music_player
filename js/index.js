@@ -82,7 +82,7 @@ let Fm = {
 
     load_music:function(set_music){
         console.log("load music...")
-        $.getJSON("//api.jirengu.com/fm/getSong.php",{channel:this.channel_id})
+        $.getJSON("http//api.jirengu.com/fm/getSong.php",{channel:this.channel_id})
          .done((res)=>{
             console.log("加载音乐成功.")
             console.log(res)
@@ -109,7 +109,7 @@ let Fm = {
 
     load_lyric:function(sid){
         let _this = this
-        $.getJSON('//jirenguapi.applinzi.com/fm/getLyric.php',{sid:sid})
+        $.getJSON('http//jirenguapi.applinzi.com/fm/getLyric.php',{sid:sid})
          .done(function(res){
              console.log("获取歌词成功...")
              console.log(res)
