@@ -10,6 +10,12 @@ let EventCenter = {
     }
 }
 
+let Api = {
+    channels:"https://jirenguapi.applinzi.com/fm/getChannels.php",
+    songs:"https://jirenguapi.applinzi.com/fm/getSong.php",
+    lyric:"https://jirenguapi.applinzi.com/fm/getLyric.php"
+}
+
 
 
 let Fm = {
@@ -82,8 +88,8 @@ let Fm = {
 
     load_music:function(set_music){
         console.log("load music...")
-        $.getJSON("http://api.jirengu.com/fm/getSong.php",{channel:this.channel_id})
-        //  $.getJSON("//jirenguapi.applinzi.com/fm/getSong.php",{channel:this.channel_id})
+        // $.getJSON("http://api.jirengu.com/fm/getSong.php",{channel:this.channel_id})
+        $.getJSON(Api.songs,{channel:this.channel_id})
 
          .done((res)=>{
             console.log("加载音乐成功.")
@@ -105,13 +111,15 @@ let Fm = {
         this.$container.find('.detail h1').text(this.song.title)
         this.$container.find('.tag').text(this.channel_name)
         this.$container.find('.author').text(this.song.artist)
-        this.$container.find('.btn-play').removeClass('.icon-play').addClass('.icon-pause')
+        this.$container.find('.btn-play').removeClass('icon-play icon-pause').addClass('icon-pause')
         this.load_lyric(this.song.sid)
     },
 
     load_lyric:function(sid){
         let _this = this
-        $.getJSON('http://api.jirengu.com/fm/getLyric.php',{sid:sid})
+        // $.getJSON('http://api.jirengu.com/fm/getLyric.php',{sid:sid})
+        $.getJSON(Api.lyric,{sid:sid})
+
          .done(function(res){
              console.log("获取歌词成功...")
              console.log(res)
@@ -212,8 +220,10 @@ let  Footer = {
     },
 
     render:function(){
-         $.getJSON('http://api.jirengu.com/fm/getChannels.php')
+        //  $.getJSON('http://api.jirengu.com/fm/getChannels.php')
+         $.getJSON(Api.channels)
 
+         
          .done( (data)=>{
              console.log("get josn done..")
              console.log(data)
