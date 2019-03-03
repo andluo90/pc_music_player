@@ -293,7 +293,7 @@ let  Footer = {
         `
         })
 
-        if(localStorage.getItem('user') !== null){
+        if(localStorage.getItem('user') !== null && localStorage.getItem('user') !== '[]' ){
             html_tmp = `
             <li data-channel-id="my_favorite" data-channel-name="my_favorite">  
                 <div class="cover" style="background-image:url(img/favorite.jpeg)"></div>  
