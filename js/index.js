@@ -25,6 +25,7 @@ let Fm = {
         this.audio.autoplay = true
         this.$like = this.$container.find('.actions .icon-heart')
         this.user = localStorage.getItem('user') === null ? [] : JSON.parse(localStorage.getItem('user'))
+        this.favorite_song_index = 0
         this.bind()
     },
 
@@ -35,7 +36,12 @@ let Fm = {
         EventCenter.on('channel_change',(e,channel_obj)=>{
             this.channel_id = channel_obj.channel_id
             this.channel_name = channel_obj.channel_name
-            this.load_music(this.set_music)
+            if(this.channel_id === 'my_favorite'){
+                this.song = this.user[this.favorite_song_index]
+                this.set_music()
+            }else{
+                this.load_music(this.set_music)
+            }
 
         })
 
@@ -52,7 +58,14 @@ let Fm = {
 
         //下一首
         this.$container.find('.btn-next').on('click',function(){
-            _this.load_music(_this.set_music)
+            if(_this.channel_id === 'my_favorite'){
+                _this.favorite_song_index = _this.favorite_song_index === _this.user.length-1 ? 0:_this.favorite_song_index+1
+                _this.song = _this.user[_this.favorite_song_index]
+                _this.set_music()
+            }else{
+                _this.load_music(_this.set_music)
+            }
+            
         })
 
         this.audio.addEventListener('play',function(){
@@ -133,13 +146,22 @@ let Fm = {
 
     set_music:function(){
         this.audio.src = this.song.url
+
         console.log("开始设置音乐.")
         $('.bg').css({'background-image':`url(${this.song.picture})`})
+        this.$like.removeClass('active')
         this.$container.find('figure').css({'background-image':`url(${this.song.picture})`})
         this.$container.find('.detail h1').text(this.song.title)
         this.$container.find('.tag').text(this.channel_name)
         this.$container.find('.author').text(this.song.artist)
         this.$container.find('.btn-play').removeClass('icon-play icon-pause').addClass('icon-pause')
+
+        this.user.forEach((song)=>{
+            if(song.sid === this.song.sid){
+                this.$like.addClass('active')
+            }
+        })
+
         this.load_lyric(this.song.sid)
     },
 
@@ -262,7 +284,7 @@ let  Footer = {
         //把li元素渲染到页面
         let = html_tmp = ''
         channels.forEach((item)=>{
-
+        
         html_tmp += `
             <li data-channel-id="${item.channel_id}" data-channel-name="${item.name}">  
                 <div class="cover" style="background-image:url(${item.cover_small})"></div>  
@@ -270,6 +292,18 @@ let  Footer = {
             </li>
         `
         })
+
+        if(localStorage.getItem('user') !== null){
+            html_tmp = `
+            <li data-channel-id="my_favorite" data-channel-name="my_favorite">  
+                <div class="cover" style="background-image:url(img/favorite.jpeg)"></div>  
+                <h3>我的收藏</h3>
+            </li>
+            `
+            +html_tmp
+        }
+
+        
         
         this.$footer.find('ul').html(html_tmp)
         this.setStyle()
