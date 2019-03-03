@@ -76,7 +76,9 @@ main {
         color: rgba(255, 255, 255, 0.4);
         transition: color .4s;
         cursor: pointer; }
-      main .aside .actions .iconfont:hover {
+      main .aside .actions .icon-heart:hover, main .aside .actions .icon-heart.active {
+        color: red; }
+      main .aside .actions .icon-next:hover, main .aside .actions .icon-play:hover, main .aside .actions .icon-pause:hover {
         color: #fff; }
   main .detail {
     margin-left: 56vh;

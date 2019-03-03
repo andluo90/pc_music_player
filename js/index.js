@@ -23,6 +23,8 @@ let Fm = {
         this.$container = $('#page-music main')
         this.audio = new Audio()
         this.audio.autoplay = true
+        this.$like = this.$container.find('.actions .icon-heart')
+        this.user = localStorage.getItem('user') === null ? [] : JSON.parse(localStorage.getItem('user'))
         this.bind()
     },
 
@@ -60,12 +62,15 @@ let Fm = {
             },1000)
         })
 
+        //暂停
         this.audio.addEventListener('pause',function(){
             clearInterval(_this.audio_clock)
             console.log("暂停中...")
             
         })
 
+        
+        //更新播放进度
         function update_status(){
             let min = Math.floor(_this.audio.currentTime/60)
             let second = Math.floor(_this.audio.currentTime%60)+''
@@ -73,7 +78,6 @@ let Fm = {
             let currentTime = `${min}:${second}`
             _this.$container.find('.current-time').text(currentTime)
             _this.$container.find('.bar-progress').css({width:_this.audio.currentTime*100/_this.audio.duration+'%'})
-            console.log(_this.lyric_obj[0+currentTime])
             let current_lyric = _this.lyric_obj[0+currentTime]
             if(current_lyric){
                 // _this.$container.find('.lyric p').html(`<p class="animated rollIn">${current_lyric}</p>`)
@@ -81,6 +85,30 @@ let Fm = {
 
             }
         }
+
+        //收藏
+        this.$like.on('click',function(){
+            if($(this).hasClass('active')){
+                console.log('收藏中...')
+                for(let [index,song] of _this.user.entries()){
+                    if(song.sid === _this.song.sid){
+                        _this.user.splice(index,1)
+                        break;
+                    }
+                }
+                localStorage.setItem('user',JSON.stringify(_this.user))
+                console.log("取消收藏成功...")
+                $(this).removeClass('active')
+            }else{
+                console.log('未收藏...')
+                _this.user.unshift(_this.song)
+                localStorage.setItem('user',JSON.stringify(_this.user))
+                $(this).addClass('active')
+                console.log("收藏成功")    
+            }
+            
+
+        })
 
         
     },
@@ -130,7 +158,6 @@ let Fm = {
              let  str = null
              lyric.split('\n').forEach((line)=>{
                  times = line.match(/\d{2}:\d{2}/g)
-                 console.log(times)
                  str = line.replace(/\[.+?\]/g,'')
                  if(Array.isArray(times)){
                     times.forEach((time)=>{

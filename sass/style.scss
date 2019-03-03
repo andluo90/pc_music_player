@@ -103,11 +103,19 @@ main {
                 color: rgba(255,255,255,0.4);
                 transition: color .4s;
                 cursor: pointer;
+
+
             }
 
-            .iconfont:hover {
+            .icon-heart:hover , .icon-heart.active{
+                color: red;
+            }
+
+            .icon-next:hover , .icon-play:hover , .icon-pause:hover {
                 color:#fff
             }
+
+            
         }
     }
 
